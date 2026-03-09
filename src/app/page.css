@@ -1,0 +1,67 @@
+body{
+  font-family: Arial, Helvetica, sans-serif;
+  background:#f7f7f7;
+  margin:0;
+  padding:40px;
+}
+
+h1{
+  margin-bottom:20px;
+  font-weight:600;
+  letter-spacing:0.5px;
+}
+
+input{
+  padding:8px 12px;
+  border:1px solid #ccc;
+  border-radius:6px;
+  margin-right:10px;
+  font-size:14px;
+  outline:none;
+}
+
+input:focus{
+  border-color:#888;
+}
+
+button{
+  padding:8px 16px;
+  border-radius:6px;
+  border:1px solid #ccc;
+  background:#f5f5f5;
+  cursor:pointer;
+  font-size:14px;
+  margin-right:10px;
+  transition:all 0.15s ease;
+}
+
+button:hover{
+  background:#eaeaea;
+  transform:translateY(-1px);
+}
+
+.cocktailGrid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,120px);
+  gap:16px;
+  margin-top:30px;
+  padding:0 40px;
+}
+
+.cocktailCard{
+  width:120px;
+  cursor:pointer;
+  transition:transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.cocktailCard:hover{
+  transform:translateY(-3px);
+  box-shadow:0 4px 10px rgba(0,0,0,0.1);
+}
+
+.cocktailCard img{
+  width:120px;
+  height:120px;
+  object-fit:cover;
+  border-radius:10px;
+}

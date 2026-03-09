@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import "./page.css";
 
 type Drink = {
     idDrink: string;
@@ -22,46 +23,72 @@ const Home = () => {
     const [finalName, setFinalName] = useState("");
 
     const fetchDrinks = async (name: string) => {
-    setLoading(true);
-    setError(null);
+        setLoading(true);
+        setError(null);
 
-    try {
-        const res = await fetch(
-            `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${name}`
-        );
+        try {
+            const res = await fetch(
+                `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${name}`
+            );
 
-        const data = await res.json();
+            const data = await res.json();
 
-        if (Array.isArray(data.drinks)) {
-            setDrinks(data.drinks);
-        } else {
+            if (Array.isArray(data.drinks)) {
+                setDrinks(data.drinks);
+            } else {
+                setDrinks([]);
+            }
+
+        } catch (e) {
+            setError("Error al obtener cocktails");
             setDrinks([]);
+        } finally {
+            setLoading(false);
         }
+    };
 
-    } catch (e) {
-        setError("Error al obtener cocktails");
-        setDrinks([]);
-    } finally {
-        setLoading(false);
-    }
-};
+    const randomCocktail = async () => {
+        try {
+            const res = await fetch(
+                "https://www.thecocktaildb.com/api/json/v1/1/random.php"
+            );
+
+            const data = await res.json();
+            const id = data.drinks?.[0]?.idDrink;
+
+            if (id) {
+                router.push(`/busquedas/${id}`);
+            }
+        } catch (e) {
+            console.error("Error obteniendo cocktail aleatorio");
+        }
+    };
+
     useEffect(() => {
         fetchDrinks(finalName);
     }, [finalName]);
 
     return (
-        <div>
-            <h1>Buscador de Cocktails</h1>
+        <div className="container">
 
-            <input
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="..."
-            />
+            <h1 className="title">Buscador de Cocktails</h1>
 
-            <button onClick={() => setFinalName(name)}>
-                Search
-            </button>
+            <div className="searchBar">
+                <input
+                    className="searchInput"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder="Buscar cocktail..."
+                />
+
+                <button className="btn" onClick={() => setFinalName(name)}>
+                    Search
+                </button>
+
+                <button className="btn" onClick={randomCocktail}>
+                    Dime algo bonito
+                </button>
+            </div>
 
             {loading && <h2>Loading...</h2>}
             {error && <h3>{error}</h3>}
@@ -70,51 +97,34 @@ const Home = () => {
                 <h3>No se encontraron resultados</h3>
             )}
 
-                
-                <div style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(auto-fill, 120px)",
-                gap: "12px",
-                marginTop: "20px"
-                }}
-                >
-            {drinks.map((drink) => (
-                <Link
-                    key={drink.idDrink}
-                    href={`/busquedas/${drink.idDrink}`}
-                    style={{
-                        textDecoration: "none",
-                        color: "inherit",
-                        fontSize: "12px"
-                    }}
-                >
-                    <div
-                        style={{
-                            width: "120px",
-                            cursor: "pointer"
-                        }}
+            <div className="cocktailGrid">
+                {drinks.map((drink) => (
+                    <Link
+                        key={drink.idDrink}
+                        href={`/busquedas/${drink.idDrink}`}
+                        className="cocktailLink"
                     >
-                        <img
-                            src={drink.strDrinkThumb}
-                            alt={drink.strDrink}
-                            style={{
-                                width: "120px",
-                                height: "120px",   // 👈 CUADRADA
-                                objectFit: "cover",
-                                borderRadius: "10px"
-                            }}
-                        />
+                        <div className="cocktailCard">
 
-                        <h3 style={{ fontSize: "12px", marginTop: "4px" }}>
-                            {drink.strDrink}
-                        </h3>
+                            <img
+                                src={drink.strDrinkThumb}
+                                alt={drink.strDrink}
+                            />
 
-                        <p style={{ opacity: 0.6 }}>{drink.strAlcoholic}</p>
-                    </div>
-                </Link>
-            ))}
+                            <h3 className="cocktailName">
+                                {drink.strDrink}
+                            </h3>
+
+                            <p className="cocktailAlcohol">
+                                {drink.strAlcoholic}
+                            </p>
+
+                        </div>
+                    </Link>
+                ))}
+            </div>
+
         </div>
-      </div>
     );
 };
 
