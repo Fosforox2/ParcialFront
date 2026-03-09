@@ -49,7 +49,7 @@ const Home = () => {
         console.error("Error obteniendo cocktail aleatorio");
     }
     };
-    useEffect(() => {
+    useEffect(() => {if(!finalName)return;
         getDrinks(finalName);
     }, [finalName]);
 
