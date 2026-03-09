@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import "./page.css";
+import { getDrinkByName, getRandomDrink } from "@/lib/api/drink";
 
 type Drink = {
     idDrink: string;
@@ -22,50 +23,34 @@ const Home = () => {
     const [name, setName] = useState("");
     const [finalName, setFinalName] = useState("");
 
-    const fetchDrinks = async (name: string) => {
-        setLoading(true);
-        setError(null);
+    const getDrinks = async (name: string) => {
+    setLoading(true);
+    setError(null);
 
-        try {
-            const res = await fetch(
-                `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${name}`
-            );
-
-            const data = await res.json();
-
-            if (Array.isArray(data.drinks)) {
-                setDrinks(data.drinks);
-            } else {
-                setDrinks([]);
-            }
-
-        } catch (e) {
-            setError("Error al obtener cocktails");
-            setDrinks([]);
-        } finally {
-            setLoading(false);
-        }
-    };
+    try {
+        const data = await getDrinkByName(name);
+        setDrinks(data);
+    } catch (e) {
+        setError("Error al obtener cocktails");
+        setDrinks([]);
+    } finally {
+        setLoading(false);
+    }
+};
 
     const randomCocktail = async () => {
-        try {
-            const res = await fetch(
-                "https://www.thecocktaildb.com/api/json/v1/1/random.php"
-            );
+    try {
+        const drink = await getRandomDrink();
 
-            const data = await res.json();
-            const id = data.drinks?.[0]?.idDrink;
-
-            if (id) {
-                router.push(`/busquedas/${id}`);
-            }
-        } catch (e) {
-            console.error("Error obteniendo cocktail aleatorio");
+        if (drink) {
+            router.push(`/busquedas/${drink.idDrink}`);
         }
+    } catch (e) {
+        console.error("Error obteniendo cocktail aleatorio");
+    }
     };
-
     useEffect(() => {
-        fetchDrinks(finalName);
+        getDrinks(finalName);
     }, [finalName]);
 
     return (

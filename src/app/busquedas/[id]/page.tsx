@@ -76,8 +76,8 @@ const EstaRecibeId = () => {
 
             <p>{bebida.strInstructions}</p>
 
-            <button onClick={() => router.back()}>
-                ← Volver
+            <button onClick={() => router.push("/")}>
+                ---Volver
             </button>
         </div>
         
