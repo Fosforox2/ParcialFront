@@ -5,6 +5,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import "./page.css";
 import { getDrinkByName, getRandomDrink } from "@/lib/api/drink";
+import { useLista } from "@/context/ListaContext";
+import styles from "react-day-picker/style.css";
 
 type Drink = {
     idDrink: string;
@@ -16,6 +18,8 @@ type Drink = {
 };
 
 const Home = () => {
+
+    const {lista,addLista} = useLista();
     const router = useRouter();
     const [drinks, setDrinks] = useState<Drink[]>([]);
     const [loading, setLoading] = useState(false);
@@ -81,6 +85,13 @@ const Home = () => {
             {!loading && drinks.length === 0 && finalName && (
                 <h3>No se encontraron resultados</h3>
             )}
+            <div>
+                <button className="btn" onClick={() => router.push("/compras")}>
+                    Ver compras
+                </button>
+            </div>
+                
+
 
             <div className="cocktailGrid">
                 {drinks.map((drink) => (
@@ -103,6 +114,16 @@ const Home = () => {
                             <p className="cocktailAlcohol">
                                 {drink.strAlcoholic}
                             </p>
+
+                            <button
+                                className="btn"
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    addLista(drink);
+                                }}
+                            >
+                                Comprar
+                            </button>
 
                         </div>
                     </Link>
