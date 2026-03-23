@@ -2,6 +2,6 @@ import axios from "axios";
 
 
 export const api = axios.create({
-    baseURL: "www.thecocktaildb.com/api/json/v1/1/",
+    baseURL: "https://itunes.apple.com/search?term=coldplay&entity=album&limit=20",
     timeout: 5000
 })

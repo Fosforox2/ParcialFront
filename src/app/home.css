@@ -1,0 +1,43 @@
+.homeContainer {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+}
+
+.homeTitle {
+  font-size: 3rem;
+}
+
+.buttonGrid {
+  display: flex;
+  gap: 30px;
+}
+
+.squareButton {
+  width: 200px;
+  height: 200px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  text-decoration: none;
+  color: white;
+
+  background: linear-gradient(135deg, #6366f1, #4f46e5);
+  border-radius: 16px;
+
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-align: center;
+
+  transition: all 0.2s ease;
+}
+
+.squareButton:hover {
+  transform: scale(1.05);
+  background: linear-gradient(135deg, #4f46e5, #4338ca);
+}

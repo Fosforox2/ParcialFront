@@ -1,0 +1,105 @@
+.container {
+  padding: 40px;
+  text-align: center;
+}
+
+.title {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+/* 🔙 Botón volver */
+.backButton {
+  display: inline-block;
+  margin-bottom: 30px;
+
+  text-decoration: none;
+  color: white;
+
+  background: #374151;
+  padding: 10px 20px;
+  border-radius: 10px;
+
+  transition: all 0.2s ease;
+}
+
+.backButton:hover {
+  background: #1f2937;
+  transform: scale(1.05);
+}
+
+/* 📦 GRID */
+.cocktailGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 25px;
+}
+
+/* 🧱 CARD */
+.cocktailCard {
+  background: #111827;
+  color: white;
+
+  border-radius: 16px;
+  padding: 15px;
+
+  transition: all 0.2s ease;
+}
+
+.cocktailCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+}
+
+/* 🔗 LINK INTERNO */
+.cocktailLink {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* 🖼️ IMAGEN */
+.cocktailCard img {
+  width: 100%;
+  border-radius: 12px;
+}
+
+.cocktailName {
+  margin-top: 10px;
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.cocktailAlcohol {
+  font-size: 0.9rem;
+  color: #9ca3af;
+}
+
+.btn {
+  margin-top: 10px;
+  width: 100%;
+
+  padding: 8px;
+  border: none;
+  border-radius: 8px;
+
+  background: #ef4444;
+  color: white;
+  font-weight: bold;
+
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+
+
+.emptyState {
+  margin-top: 40px;
+  color: #6b7280;
+}
+
+.emptyState a {
+  display: inline-block;
+  margin-top: 10px;
+  text-decoration: none;
+  color: #6366f1;
+}

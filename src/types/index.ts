@@ -3,4 +3,4 @@
 
 
 
-export * from "./drink";
+export * from "./album";
